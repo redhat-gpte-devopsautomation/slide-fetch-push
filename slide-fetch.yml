@@ -1,0 +1,35 @@
+---
+- name: fetch slides for a GPTE course from Jenkins
+  hosts: jenkins
+  gather_facts: false
+  become: false
+
+  vars:
+    save_path: "{{ output_directory }}"
+    course_name: ansible_advanced
+    jenkins_home: /home/jenkins/jenkins_home/jobs/
+    html_output: /lastSuccessful/archive/tempMultiSCOFiles/
+    full_path: "{{ jenkins_home }}{{ course_name }}{{ html_output }}"  
+
+  tasks:
+
+    - name: fetch course choices
+      block:
+
+      - name: list jenkins courses
+        command: ls "{{ jenkins_home }}"
+        register: dir
+
+      - name: print list of courses
+        debug:
+          msg: "{{ dir.stdout }}"
+
+      when: course_name == "list"
+
+
+    - name: "fetch remote {{ course_name }} directory to {{ save_path }}"
+      synchronize:
+        src: "{{ full_path }}"
+        dest: "{{ save_path }}/{{ course_name }}"
+        mode: pull
+      when: course_name != "list"

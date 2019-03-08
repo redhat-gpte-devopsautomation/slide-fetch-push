@@ -1,0 +1,66 @@
+== Slide Fetch - Slide Host
+
+=== Explanation
+
+If you're updating slides too quickly to refresh the LMSes, consider using the following.
+
+You'll have to tell your students the URLs to get to the content.
+
+=== Summary
+
+`slide-fetch.yaml` Fetches the slides directory (with CSS, JavaScript etc) from Jenkins server
+
+`slide-host.sh` create an nginx container on your cluster and with the slides you indicate.
+
+=== Slide Fetch - Setup
+
+* Setup your ssh login and key in `hosts` 
+
+=== Slide Fetch - Usage
+
+* Retrieve list of all built course names
++
+[source, bash]
+----
+ansible-playbook slide-fetch.yml -e course_name=list
+----
+
+* Retrieve default course - default set in `slide-fetch.yml` var `course_name`
++
+[source, bash]
+----
+ansible-playbook slide-fetch.yml
+----
+
+* Retrieve course of choice, set course via cli `course_name`
+.Example:
++
+[source, bash]
+----
+ansible-playbook slide-fetch.yml -vvv -e course_name=ocp_advanced_development output_directory=~/jenkins_archive/
+----
+
+* Remind Judd how to do it
+** Get Slides
++
+[source,text]
+----
+ansible-playbook slide-fetch.yml  -e course_name=ocp4_advanced_deployment -e output_directory=~/class_slides/
+----
+** Push Slides to a cluster
++
+[source,text]
+----
+ocp_slides_project.sh ocp4slides ~/class_slides/ocp4_advanced_deployment/ slides
+----
+
+=== Slide Host
+
+* Log in to your OpenShift
+* Decide on a project name - default is `slides`
+* Decide on an app name - default is `slides`
+* Locate your source directory.  Default location is `pwd`
+* Run the script:
+
+`slide-host.sh <project_name> <app_name> <source_dir>"`
+

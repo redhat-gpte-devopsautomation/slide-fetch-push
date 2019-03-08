@@ -1,0 +1,9 @@
+---
+course_name: ansible_advanced
+
+# where do you want your slides 
+output_directory: /tmp/
+
+jenkins_home: /home/jenkins/jenkins_home/jobs/
+html_output: /lastSuccessful/archive/tempMultiSCOFiles/
+full_path: "{{ jenkins_home }}{{ course_name }}{{ html_output }}"
