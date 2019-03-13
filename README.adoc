@@ -51,7 +51,7 @@ ansible-playbook slide-fetch.yml  -e course_name=ocp4_advanced_deployment -e out
 +
 [source,text]
 ----
-ocp_slides_project.sh ocp4slides ~/class_slides/ocp4_advanced_deployment/ slides
+slide-host.sh ocp4slides slides ~/class_slides/ocp4_advanced_deployment/ 
 ----
 
 === Slide Host
