@@ -15,6 +15,19 @@ You'll have to tell your students the URLs to get to the content.
 === Slide Fetch - Setup
 
 * Setup your ssh login and key in `hosts` 
++
+.Example
+----
+cat hosts
+[jenkins]
+jenkins-host ansible_host=jenkins.opentlc.com
+
+[jenkins:vars]
+timeout                   = 60
+ansible_user              = jmaltin-redhat.com
+ansible_private_key_file  = ~/.ssh/id_rsa
+ansible_ssh_common_args   = "-o StrictHostKeyChecking=no"
+----
 
 === Slide Fetch - Usage
 
@@ -79,11 +92,13 @@ odo push
 ----
 
 * If you want to watch it work, do
++
 ----
 odo push -v5
 ----
 
 * If there's something wrong you can force it to push
++
 ----
 odo push -v5 -f
 ----
