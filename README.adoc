@@ -64,3 +64,28 @@ slide-host.sh ocp4slides slides ~/class_slides/ocp4_advanced_deployment/
 
 `slide-host.sh <project_name> <app_name> <source_dir>"`
 
+== Using `odo` to create a slide server
+
+*  Download Slides as above
+*  cd into the downloaded slide directory
+*  think up a project name to match your class.  I usually use "gpte-infra".  Don't collide with mine. :-)
+
+----
+odo login (to your target cluster)          # if you are not already logged in using "oc login"
+odo project create CLASS_NAME              # This creates a new project, you could switch to the right project using 'odo project set <project name>'
+odo create httpd slides                        # nginx does not work with odo
+odo url create --port=8080
+odo push
+----
+
+* If you want to watch it work, do
+----
+odo push -v5
+----
+
+* If there's something wrong you can force it to push
+----
+odo push -v5 -f
+----
+
+
